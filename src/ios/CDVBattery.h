@@ -32,6 +32,7 @@
 @property (nonatomic) bool isPlugged;
 @property (strong) NSString* callbackId;
 
+- (void)updateBatteryStatus;
 - (void)updateBatteryStatus:(NSNotification*)notification;
 - (NSDictionary*)getBatteryStatus;
 - (void)start:(CDVInvokedUrlCommand*)command;

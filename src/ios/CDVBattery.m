@@ -57,6 +57,17 @@
 }
  */
 
+- (void)updateBatteryStatus
+{
+    NSDictionary* batteryData = [self getBatteryStatus];
+
+    if (self.callbackId) {
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:batteryData];
+        [result setKeepCallbackAsBool:YES];
+        [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+    }
+}
+
 - (void)updateBatteryStatus:(NSNotification*)notification
 {
     NSDictionary* batteryData = [self getBatteryStatus];
@@ -111,6 +122,8 @@
                                                      name:UIDeviceBatteryStateDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBatteryStatus:)
                                                      name:UIDeviceBatteryLevelDidChangeNotification object:nil];
+
+        [self updateBatteryStatus];
     }
 }
 
